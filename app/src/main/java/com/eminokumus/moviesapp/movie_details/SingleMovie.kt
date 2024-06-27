@@ -27,7 +27,7 @@ class SingleMovie : AppCompatActivity() {
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movieId = 1
+        val movieId = intent.getIntExtra("movieId" , 1)
 
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         movieDetailsRepository = MovieDetailsRepository(apiService)

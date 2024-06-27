@@ -6,14 +6,9 @@ enum class Status {
 
 class NetworkState(val status: Status, val msg: String) {
     companion object{
-        lateinit var LOADED: NetworkState
-        lateinit var LOADING: NetworkState
-        lateinit var ERROR: NetworkState
+        var LOADED: NetworkState = NetworkState(Status.RUNNING,"Success")
+        var LOADING: NetworkState = NetworkState(Status.RUNNING, "Running")
+        var ERROR: NetworkState = NetworkState(Status.FAILED, "Something went wrong")
     }
-    init {
-        LOADED = NetworkState(Status.SUCCESS, "Success")
-        LOADING = NetworkState(Status.RUNNING, "Running")
-        ERROR = NetworkState(Status.FAILED, "Something went worng")
 
-    }
 }
