@@ -13,11 +13,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.changeActivityBtn.setOnClickListener {
-            val intent = Intent(this,SingleMovie::class.java)
-            intent.putExtra("movieId", 573435)
-            this.startActivity(intent)
-        }
+
 
     }
 }
