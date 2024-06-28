@@ -1,10 +1,8 @@
-package com.eminokumus.moviesapp
+package com.eminokumus.moviesapp.ui.popular_movie
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.eminokumus.moviesapp.databinding.ActivityMainBinding
-import com.eminokumus.moviesapp.movie_details.SingleMovie
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

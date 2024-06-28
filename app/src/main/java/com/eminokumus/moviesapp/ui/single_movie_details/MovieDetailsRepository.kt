@@ -1,4 +1,4 @@
-package com.eminokumus.moviesapp.movie_details
+package com.eminokumus.moviesapp.ui.single_movie_details
 
 import androidx.lifecycle.LiveData
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface

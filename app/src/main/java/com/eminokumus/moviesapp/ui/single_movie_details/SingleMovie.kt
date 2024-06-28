@@ -1,13 +1,11 @@
-package com.eminokumus.moviesapp.movie_details
+package com.eminokumus.moviesapp.ui.single_movie_details
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.eminokumus.moviesapp.R
 import com.eminokumus.moviesapp.data.api.POSTER_BASE_URL
 import com.eminokumus.moviesapp.data.api.TheMovieDBClient
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
