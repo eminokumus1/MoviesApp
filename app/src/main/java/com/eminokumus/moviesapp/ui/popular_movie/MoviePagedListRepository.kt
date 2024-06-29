@@ -16,8 +16,8 @@ class MoviePagedListRepository(private val apiService: TheMovieDBInterface) {
     lateinit var moviePagedList: LiveData<PagedList<Movie>>
     lateinit var movieDataSourceFactory: MovieDataSourceFactory
 
-    fun fetchLiveMoviePagedList(compositeDisposable: CompositeDisposable): LiveData<PagedList<Movie>> {
-        movieDataSourceFactory = MovieDataSourceFactory(apiService, compositeDisposable)
+    fun fetchLiveMoviePagedList(): LiveData<PagedList<Movie>> {
+        movieDataSourceFactory = MovieDataSourceFactory(apiService)
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
