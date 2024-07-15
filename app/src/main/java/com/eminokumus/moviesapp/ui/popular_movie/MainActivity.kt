@@ -10,11 +10,18 @@ import com.eminokumus.moviesapp.data.api.TheMovieDBClient
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel
-    lateinit var movieRepository: MoviePagedListRepository
+    lateinit var movieRepository: MoviePagingDataRepository
+
+    private val coroutineJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + coroutineJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +29,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
-        movieRepository = MoviePagedListRepository(apiService)
+        movieRepository = MoviePagingDataRepository(apiService)
 
         viewModel = getViewModel()
 
-        val movieAdapter = PopularMoviePagesListAdapter(this)
+
+
+        val movieAdapter = PopularMoviePagingDataAdapter(this)
 
         val gridLayoutManager = GridLayoutManager(this, 3)
 
@@ -43,8 +52,22 @@ class MainActivity : AppCompatActivity() {
         binding.rvMovieList.setHasFixedSize(true)
         binding.rvMovieList.adapter = movieAdapter
 
-        viewModel.moviePagedList.observe(this) {
-            movieAdapter.submitList(it)
+        observeProperties(movieAdapter)
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            movieAdapter.refresh()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
+
+
+    }
+
+    private fun observeProperties(movieAdapter: PopularMoviePagingDataAdapter) {
+        viewModel.moviePagingData.observe(this) {
+            uiScope.launch {
+                movieAdapter.submitData(it)
+            }
         }
 
         viewModel.networkState.observe(this) {
@@ -55,19 +78,23 @@ class MainActivity : AppCompatActivity() {
                     View.GONE
                 }
             binding.txtErrorPopular.visibility =
-                if(viewModel.listIsEmpty() && it == NetworkState.ERROR){
+                if (viewModel.listIsEmpty() && it == NetworkState.ERROR) {
                     View.VISIBLE
-                }else{
+                } else {
                     View.GONE
                 }
 
-            if (!viewModel.listIsEmpty()){
+            if (!viewModel.listIsEmpty()) {
                 movieAdapter.setNetworkState(it)
             }
         }
-
-
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineJob.cancel()
+    }
+
 
     private fun getViewModel(): MainActivityViewModel {
         return ViewModelProvider(this, object : ViewModelProvider.Factory {
