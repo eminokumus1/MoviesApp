@@ -5,21 +5,20 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eminokumus.moviesapp.data.api.POSTER_BASE_URL
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.Movie
-import com.eminokumus.moviesapp.databinding.ActivityMainBinding
 import com.eminokumus.moviesapp.databinding.MovieListItemBinding
 import com.eminokumus.moviesapp.databinding.NetworkStateItemBinding
 import com.eminokumus.moviesapp.ui.single_movie_details.SingleMovie
 import java.lang.ClassCastException
 
-class PopularMoviePagesListAdapter(val context: Context) :
-    PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCalback()) {
+class PopularMoviePagingDataAdapter(val context: Context) :
+    PagingDataAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCalback()) {
 
     val MOVIE_VIEW_TYPE = 1
     val NETWORK_VIEW_TYPE = 2

@@ -30,6 +30,7 @@ class MovieDataSource(
                 )
             }
             .onErrorReturn {
+                networkState.postValue(NetworkState.ERROR)
                 LoadResult.Error(it)
             }
 
