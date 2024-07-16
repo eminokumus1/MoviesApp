@@ -13,8 +13,9 @@ import com.eminokumus.moviesapp.data.repository.MovieDataSourceFactory
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.Movie
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MoviePagingDataRepository(private val apiService: TheMovieDBInterface) {
+class MoviePagingDataRepository @Inject constructor(private val apiService: TheMovieDBInterface) {
 
     lateinit var  moviePagingData: Flow<PagingData<Movie>>
    // val moviePagingData: LiveData<Flow<PagingData<Movie>>> get() = _moviePagingData

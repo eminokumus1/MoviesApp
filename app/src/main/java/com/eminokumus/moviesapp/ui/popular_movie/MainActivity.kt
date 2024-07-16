@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.eminokumus.moviesapp.MyApplication
 import com.eminokumus.moviesapp.data.api.TheMovieDBClient
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.repository.NetworkState
@@ -14,26 +15,27 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainActivityViewModel
+
+
+    @Inject
+    lateinit var viewModel: MainActivityViewModel
+    @Inject
     lateinit var movieRepository: MoviePagingDataRepository
 
     private val coroutineJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + coroutineJob)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
-        movieRepository = MoviePagingDataRepository(apiService)
-
-        viewModel = getViewModel()
-
-
 
         val movieAdapter = PopularMoviePagingDataAdapter(this)
 
@@ -48,9 +50,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.rvMovieList.layoutManager = gridLayoutManager
-        binding.rvMovieList.setHasFixedSize(true)
-        binding.rvMovieList.adapter = movieAdapter
+        binding.rvMovieList.run {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            adapter = movieAdapter
+        }
 
         observeProperties(movieAdapter)
 
@@ -96,12 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun getViewModel(): MainActivityViewModel {
-        return ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return MainActivityViewModel(movieRepository) as T
-            }
-        })[MainActivityViewModel::class.java]
-    }
+//    private fun getViewModel(): MainActivityViewModel {
+//        return ViewModelProvider(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                @Suppress("UNCHECKED_CAST")
+//                return MainActivityViewModel(movieRepository) as T
+//            }
+//        })[MainActivityViewModel::class.java]
+//    }
 }

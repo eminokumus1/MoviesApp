@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.Movie
+import javax.inject.Inject
 
-class MainActivityViewModel(private val movieRepository: MoviePagingDataRepository) : ViewModel() {
+class MainActivityViewModel @Inject constructor(private val movieRepository: MoviePagingDataRepository) : ViewModel() {
 
     val moviePagingData: LiveData<PagingData<Movie>> by lazy {
         movieRepository.fetchLiveMoviePagingData()

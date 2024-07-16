@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 
 }
 
@@ -71,5 +72,9 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    implementation ("com.google.dagger:dagger:2.51.1")
+    annotationProcessor ("com.google.dagger:dagger-compiler:2.51.1")
+    kapt("com.google.dagger:dagger-compiler:2.51.1")
 
 }
