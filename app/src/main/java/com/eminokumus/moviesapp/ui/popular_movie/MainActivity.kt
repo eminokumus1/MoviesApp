@@ -3,12 +3,8 @@ package com.eminokumus.moviesapp.ui.popular_movie
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eminokumus.moviesapp.MyApplication
-import com.eminokumus.moviesapp.data.api.TheMovieDBClient
-import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope

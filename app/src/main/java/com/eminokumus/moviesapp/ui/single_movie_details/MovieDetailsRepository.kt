@@ -6,8 +6,9 @@ import com.eminokumus.moviesapp.data.repository.MovieDetailsNetworkDataSource
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.MovieDetails
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class MovieDetailsRepository(private val apiService: TheMovieDBInterface) {
+class MovieDetailsRepository @Inject constructor(private val apiService: TheMovieDBInterface) {
 
     lateinit var movieDetailsNetworkDataSource: MovieDetailsNetworkDataSource
 

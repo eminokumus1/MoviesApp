@@ -5,8 +5,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingSourceFactory
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.vo.Movie
+import javax.inject.Inject
 
-class MovieDataSourceFactory(
+class MovieDataSourceFactory @Inject constructor(
     private val apiService: TheMovieDBInterface,
 ) : PagingSourceFactory<Int, Movie> {
 

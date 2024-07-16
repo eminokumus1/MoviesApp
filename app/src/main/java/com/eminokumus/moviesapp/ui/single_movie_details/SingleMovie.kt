@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.eminokumus.moviesapp.MyApplication
 import com.eminokumus.moviesapp.data.api.POSTER_BASE_URL
 import com.eminokumus.moviesapp.data.api.TheMovieDBClient
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
@@ -14,21 +15,28 @@ import com.eminokumus.moviesapp.data.vo.MovieDetails
 import com.eminokumus.moviesapp.databinding.ActivitySingleMovieBinding
 import java.text.NumberFormat
 import java.util.Locale
+import javax.inject.Inject
 
 class SingleMovie : AppCompatActivity() {
     private lateinit var binding: ActivitySingleMovieBinding
+
+
     private lateinit var viewModel: SingleMovieViewModel
-    private lateinit var movieDetailsRepository: MovieDetailsRepository
+
+    @Inject
+    lateinit var movieDetailsRepository: MovieDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val movieId = intent.getIntExtra("movieId" , 1)
 
-        val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
-        movieDetailsRepository = MovieDetailsRepository(apiService)
+
 
         viewModel = getViewModel(movieId)
 

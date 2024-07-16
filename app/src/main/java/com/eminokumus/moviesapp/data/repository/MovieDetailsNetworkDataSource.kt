@@ -7,8 +7,9 @@ import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.vo.MovieDetails
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MovieDetailsNetworkDataSource(
+class MovieDetailsNetworkDataSource @Inject constructor(
     private val apiService: TheMovieDBInterface,
     private val compositeDisposable: CompositeDisposable
 ) {

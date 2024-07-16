@@ -8,8 +8,9 @@ import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.vo.Movie
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MovieDataSource(
+class MovieDataSource @Inject constructor(
     private val apiService: TheMovieDBInterface,
 ) : RxPagingSource<Int, Movie>() {
 

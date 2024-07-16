@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.MovieDetails
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class SingleMovieViewModel(
+class SingleMovieViewModel @Inject constructor(
     private val movieDetailsRepository: MovieDetailsRepository,
     movieId: Int
 ) : ViewModel() {

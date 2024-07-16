@@ -1,7 +1,6 @@
 package com.eminokumus.moviesapp.ui.popular_movie
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.paging.Pager
@@ -19,7 +18,9 @@ class MoviePagingDataRepository @Inject constructor(private val apiService: TheM
 
     lateinit var  moviePagingData: Flow<PagingData<Movie>>
    // val moviePagingData: LiveData<Flow<PagingData<Movie>>> get() = _moviePagingData
-    val movieDataSourceFactory: MovieDataSourceFactory = MovieDataSourceFactory(apiService)
+
+    @Inject
+    lateinit var  movieDataSourceFactory: MovieDataSourceFactory
 
     fun fetchLiveMoviePagingData(): LiveData<PagingData<Movie>> {
 
