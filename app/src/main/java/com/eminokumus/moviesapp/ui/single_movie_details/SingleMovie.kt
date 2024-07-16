@@ -20,25 +20,22 @@ import javax.inject.Inject
 class SingleMovie : AppCompatActivity() {
     private lateinit var binding: ActivitySingleMovieBinding
 
-
-    private lateinit var viewModel: SingleMovieViewModel
+    @Inject
+    lateinit var viewModel: SingleMovieViewModel
 
     @Inject
     lateinit var movieDetailsRepository: MovieDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        (application as MyApplication).appComponent.inject(this)
+        val movieId = intent.getIntExtra("movieId", 1)
+
+        (application as MyApplication).appComponent.singleMovieComponent().create(movieId)
+            .inject(this)
 
         super.onCreate(savedInstanceState)
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val movieId = intent.getIntExtra("movieId" , 1)
-
-
-
-        viewModel = getViewModel(movieId)
 
         viewModel.movieDetails.observe(this) {
             bindUI(it)
@@ -56,16 +53,20 @@ class SingleMovie : AppCompatActivity() {
     }
 
     private fun bindUI(it: MovieDetails) {
-        binding.movieTitle.text = it.title
-        binding.movieTagline.text = it.tagline
-        binding.movieReleaseDate.text = it.releaseDate
-        binding.movieRating.text = it.rating.toString()
-        binding.movieRuntime.text = it.runtime.toString() + "minutes"
-        binding.movieOverview.text = it.overview
+        binding.run {
+            movieTitle.text = it.title
+            movieTagline.text = it.tagline
+            movieReleaseDate.text = it.releaseDate
+            movieRating.text = it.rating.toString()
+            movieRuntime.text = it.runtime.toString() + "minutes"
+            movieOverview.text = it.overview
+        }
 
         val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
-        binding.movieBudget.text = formatCurrency.format(it.budget)
-        binding.movieRevenue.text = formatCurrency.format(it.revenue)
+        binding.run {
+            movieBudget.text = formatCurrency.format(it.budget)
+            movieRevenue.text = formatCurrency.format(it.revenue)
+        }
 
         val moviePosterURL = POSTER_BASE_URL + it.posterPath
         Glide.with(this)

@@ -14,10 +14,13 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+
 
 @Module
 class NetworkModule {
 
+    @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient{
         val requestInterceptor = Interceptor {chain ->
@@ -41,7 +44,7 @@ class NetworkModule {
             .build()
         return okHttpClient
     }
-
+    @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): TheMovieDBInterface{
         return Retrofit.Builder()

@@ -1,10 +1,14 @@
 package com.eminokumus.moviesapp.di
 
 import com.eminokumus.moviesapp.ui.popular_movie.MainActivity
+import com.eminokumus.moviesapp.ui.popular_movie.PopularMoviesComponent
 import com.eminokumus.moviesapp.ui.single_movie_details.SingleMovie
+import com.eminokumus.moviesapp.ui.single_movie_details.SingleMovieComponent
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [NetworkModule::class])
+@Singleton
+@Component(modules = [NetworkModule::class, AppSubComponents::class])
 interface AppComponent {
 
     @Component.Factory
@@ -12,7 +16,8 @@ interface AppComponent {
         fun create(): AppComponent
     }
 
-    fun inject(activity: MainActivity)
-    fun inject(activity: SingleMovie)
+    fun popularMoviesComponent(): PopularMoviesComponent.Factory
+
+    fun singleMovieComponent(): SingleMovieComponent.Factory
 
 }
