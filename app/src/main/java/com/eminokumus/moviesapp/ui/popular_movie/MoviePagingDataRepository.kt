@@ -7,14 +7,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.eminokumus.moviesapp.data.api.POST_PER_PAGE
-import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.repository.MovieDataSourceFactory
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.Movie
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MoviePagingDataRepository @Inject constructor(private val apiService: TheMovieDBInterface) {
+class MoviePagingDataRepository @Inject constructor() {
 
     lateinit var  moviePagingData: Flow<PagingData<Movie>>
    // val moviePagingData: LiveData<Flow<PagingData<Movie>>> get() = _moviePagingData

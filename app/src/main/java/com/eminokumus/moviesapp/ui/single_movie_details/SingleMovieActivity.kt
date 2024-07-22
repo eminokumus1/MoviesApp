@@ -3,13 +3,9 @@ package com.eminokumus.moviesapp.ui.single_movie_details
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.eminokumus.moviesapp.MyApplication
 import com.eminokumus.moviesapp.data.api.POSTER_BASE_URL
-import com.eminokumus.moviesapp.data.api.TheMovieDBClient
-import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.MovieDetails
 import com.eminokumus.moviesapp.databinding.ActivitySingleMovieBinding
@@ -17,7 +13,7 @@ import java.text.NumberFormat
 import java.util.Locale
 import javax.inject.Inject
 
-class SingleMovie : AppCompatActivity() {
+class SingleMovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySingleMovieBinding
 
     @Inject
@@ -34,6 +30,7 @@ class SingleMovie : AppCompatActivity() {
             .inject(this)
 
         super.onCreate(savedInstanceState)
+
         binding = ActivitySingleMovieBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -48,7 +45,7 @@ class SingleMovie : AppCompatActivity() {
             binding.txtError.visibility =
                 if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         }
-
+//        viewModel.getMovie(movieId)
 
     }
 
@@ -75,11 +72,11 @@ class SingleMovie : AppCompatActivity() {
 
     }
 
-    private fun getViewModel(movieId: Int): SingleMovieViewModel {
-        return ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return SingleMovieViewModel(movieDetailsRepository, movieId) as T
-            }
-        })[SingleMovieViewModel::class.java]
-    }
+//    private fun getViewModel(movieId: Int): SingleMovieViewModel {
+//        return ViewModelProvider(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//                return SingleMovieViewModel(movieDetailsRepository, movieId) as T
+//            }
+//        })[SingleMovieViewModel::class.java]
+//    }
 }

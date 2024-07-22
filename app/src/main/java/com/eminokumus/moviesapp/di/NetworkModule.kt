@@ -2,7 +2,6 @@ package com.eminokumus.moviesapp.di
 
 import com.eminokumus.moviesapp.data.api.API_KEY
 import com.eminokumus.moviesapp.data.api.BASE_URL
-import com.eminokumus.moviesapp.data.api.TheMovieDBClient
 import com.eminokumus.moviesapp.data.api.TheMovieDBInterface
 import dagger.Module
 import dagger.Provides
@@ -22,9 +21,9 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient{
-        val requestInterceptor = Interceptor {chain ->
-            val url : HttpUrl = chain.request()
+    fun provideOkHttpClient(): OkHttpClient {
+        val requestInterceptor = Interceptor { chain ->
+            val url: HttpUrl = chain.request()
                 .url()
                 .newBuilder()
                 .addQueryParameter("api_key", API_KEY)
@@ -38,11 +37,10 @@ class NetworkModule {
             return@Interceptor chain.proceed(request)
         }
 
-        val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()
-        return okHttpClient
     }
     @Singleton
     @Provides

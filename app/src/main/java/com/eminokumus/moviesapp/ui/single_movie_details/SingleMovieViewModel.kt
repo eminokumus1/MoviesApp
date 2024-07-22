@@ -17,6 +17,8 @@ class SingleMovieViewModel @Inject constructor(
     val movieDetails: LiveData<MovieDetails> by lazy {
         movieDetailsRepository.fetchSingleMovieDetails(compositeDisposable,movieId)
     }
+//    val movieDetailsMutableLiveData = MutableLiveData<MovieDetails>()
+//    val _movieDetails: LiveData<MovieDetails> get() = movieDetailsMutableLiveData
 
     val networkState: LiveData<NetworkState> by lazy {
         movieDetailsRepository.getMovieDetailsNetworkState()
@@ -26,5 +28,8 @@ class SingleMovieViewModel @Inject constructor(
         super.onCleared()
         compositeDisposable.dispose()
     }
+//    fun getMovie(movieId: Int){
+//        movieDetailsMutableLiveData.value = movieDetailsRepository.fetchSingleMovieDetails(compositeDisposable,movieId).value
+//    }
 
 }

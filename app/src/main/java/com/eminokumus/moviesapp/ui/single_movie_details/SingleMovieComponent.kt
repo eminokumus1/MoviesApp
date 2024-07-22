@@ -11,6 +11,6 @@ interface SingleMovieComponent {
         fun create(@BindsInstance movieId: Int): SingleMovieComponent
     }
 
-    fun inject(activity: SingleMovie)
+    fun inject(activity: SingleMovieActivity)
 
 }

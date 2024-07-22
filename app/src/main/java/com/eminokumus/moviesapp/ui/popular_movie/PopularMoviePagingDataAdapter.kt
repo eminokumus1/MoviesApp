@@ -14,7 +14,7 @@ import com.eminokumus.moviesapp.data.repository.NetworkState
 import com.eminokumus.moviesapp.data.vo.Movie
 import com.eminokumus.moviesapp.databinding.MovieListItemBinding
 import com.eminokumus.moviesapp.databinding.NetworkStateItemBinding
-import com.eminokumus.moviesapp.ui.single_movie_details.SingleMovie
+import com.eminokumus.moviesapp.ui.single_movie_details.SingleMovieActivity
 import java.lang.ClassCastException
 
 class PopularMoviePagingDataAdapter(val context: Context) :
@@ -101,7 +101,7 @@ class PopularMoviePagingDataAdapter(val context: Context) :
                 .into(movieListItemBinding.cvIvMoviePoster)
 
             itemView.setOnClickListener {
-                val intent = Intent(context, SingleMovie::class.java)
+                val intent = Intent(context, SingleMovieActivity::class.java)
                 intent.putExtra("movieId", movie?.id)
                 context.startActivity(intent)
             }
